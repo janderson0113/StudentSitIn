@@ -1,0 +1,110 @@
+---
+title: "Student Sit In"
+author: "Jaynell Anderson"
+date: "10/28/2019"
+output: 
+  html_document:
+    toc: true
+    number_sectons: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# ONE SHOT assignment!
+this is an extra credit assignment, must be completed Monday Oct 28, turn-in closes at midnight!
+
+## Problem statement: 
+Students at UCD- is there a relation between where one sits and one's major? 
+
+## Introduction  
+
+<!-- where is the data found?  Is this an experiment or an observational study?  !-->
+
+Data from this study came from UC Davis. This study is observational.
+
+
+
+```{r include=FALSE, echo=FALSE}
+library(tigerstats)
+data(ucdavis1)
+
+```
+
+$H_0$: there is no relationship between one's major and where one sits in a class   
+$H_A$: where one sits in class and one's major are related  
+
+<!-- Get the data: !-->
+
+names of the data in the data frame
+
+```{r echo=FALSE}
+UCDdataframe = data.frame(seat=ucdavis1$Seat, major=ucdavis1$class, data=ucdavis1)
+names(UCDdataframe)
+```
+## Methods
+
+<!--  describe analysis methods here 
+what are the variable types, and indicate gaphical, numerical, and inferential methods appropriate
+for this question  !--> 
+The variable types are categorical for both variables. The chart used are bar graphs, for the numerical we will be using a table, for the inferential methods we will be using the chi-squared test
+
+
+## Data summary
+
+**Graphical summary**
+
+
+```{r}
+barchartGC(~ seat+major, data = UCDdataframe)
+```
+
+Explain what the graph
+
+The graph shows not only that there are more NonLib majors than LibArts majors in the class but also that generally they both frequently sit in the middle of the class.
+
+**Numerical summary** 
+put numerical summary here
+
+```{r}
+tab1 = xtabs(~seat+major , data = UCDdataframe)
+rowPerc(tab1)
+
+```
+
+Explain what the numeric summary says
+
+The numeric summary says that the NonLibs have a higher percentage of students sitting in the back while the LibArts have a higher percentage of sitting in the front.Though technically they both frequently sit in the middle.
+
+## Inferential Results
+put the inferential test for the the null hypothesis here
+
+```{r}
+chisq.test(tab1)
+```
+
+The p-value is 0.2173
+
+
+## Results and conclusions
+
+<!-- explain-- is there evidence that certain majors tend to sit in particular areas of the class?  Can the results of this test be generalized to all majors in all universities? !-->
+
+explain the result, can the result be generalized?
+
+The p-value for the chisq.test is 0.2<0.5. So we fail to reject the Null hypothesis and can conclude we dont have enough evidence to support a connection between where someone sits and the major of that individual.
+
+<!--
+push results to your github account, turn in the URL
+
+--OR--
+
+If you did not fork my repo to your github account,
+create a repository in your github account for this project, get the URL for that repo and 
+(in the terminal window..)
+
+$git remote add origin URL_of_your_github_repo
+$git push -u origin master
+
+!-->
